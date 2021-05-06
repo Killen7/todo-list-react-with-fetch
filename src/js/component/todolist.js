@@ -6,7 +6,7 @@ export const TodoList = () => {
 		"pasear al perro",
 		"tender la cama"
 	]);
-	const [mouseover, setMouseover] = useState("");
+	const [mouseover, setMouseover] = useState();
 
 	const agregarTarea = event => {
 		event.preventDefault();
@@ -28,11 +28,13 @@ export const TodoList = () => {
 					<div className="form-group d-flex">
 						<input
 							type="text"
-							className="form-control"
+							className="form-control display-4 d-flex"
 							placeholder="Escribe tu tarea aqui"
 						/>
-						<button type="submit" className="btn btn-primary ml-3">
-							Submit
+						<button
+							type="submit"
+							className="btn btn-outline-dark ml-3">
+							<p>Agregar tarea</p>
 						</button>
 					</div>
 					<div className="list-group">
@@ -45,25 +47,29 @@ export const TodoList = () => {
 										setMouseover(index);
 									}}
 									onMouseOut={() => {
-										setMouseover("");
+										setMouseover();
 									}}
 									className="border-right-0 border-left-0 list-group-item list-group-item-action list-group-item-light">
-									<span className="d-flex justify-content-between">
+									<span className="d-flex display-4 justify-content-between">
 										<span>{tareas}</span>{" "}
 										<span
 											className={
-												"cruz " +
+												"cruz" +
 												(mouseover == index
 													? "activo"
 													: "")
 											}>
-											X
+											<h1 className="h3">X</h1>
 										</span>
 									</span>
 								</div>
 							);
 						})}
-						<div className="border-right-0 border-left-0 list-group-item list-group-item-action list-group-item-light"></div>
+						<div className="border-right-0 border-left-0 p-2 list-group-item list-group-item-action list-group-item-light">
+							{listaTareas.length == 0
+								? "No hay tareas"
+								: "Hay " + listaTareas.length + " tareas"}
+						</div>
 					</div>
 				</div>
 			</form>
