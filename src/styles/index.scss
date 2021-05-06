@@ -17,10 +17,6 @@
 p {
     margin : 0;
 }
-.btn{
-    width: 40px;
-    height: 40px;
-}
 .cajita1 {
     width: 98%;
 }
@@ -35,4 +31,28 @@ body {
 }
 .blanco {
     background-color: white;
+}
+.outlinenone {
+    outline: none !important;
+    border: 0 !important;
+    outline-offset: 0 !important;
+    width: 100%;
+}
+.btn:focus{
+    border: none;
+    box-shadow: none;
+    outline: none !important;
+}
+.btn:active{
+    border: none;
+    box-shadow: none;
+    outline: none !important;
+}
+
+.btn{
+    border: none;
+    box-shadow: none;
+    outline: none !important;
+    width: 40px;
+    height: 40px;
 }

@@ -30,12 +30,13 @@ export const TodoList = () => {
 						<input
 							type="text"
 							onChange={e => setTarea(e.target.value)}
-							className="form-control display-4 border-0 pl-3 d-flex"
+							className="outlinenone py-3 display-4 border-0 pl-3 d-flex"
 							placeholder="Escribe tu tarea aqui"
+							value={tarea}
 						/>
 						<button
 							type="submit"
-							className="btn btn-outline-dark mr-2 my-auto ml-3">
+							className="btn btn-outline-dark mr-3 my-auto ml-3">
 							<i className="my-auto mx-auto fas fa-plus"></i>
 						</button>
 					</div>
