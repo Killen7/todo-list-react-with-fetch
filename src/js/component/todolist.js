@@ -3,8 +3,8 @@ import React, { useState } from "react";
 export const TodoList = () => {
 	const [tarea, setTarea] = useState("");
 	const [listaTareas, setListaTareas] = useState([
-		"pasear al perro",
-		"tender la cama"
+		"Pasear al perro",
+		"Tender la cama"
 	]);
 	const [mouseover, setMouseover] = useState();
 
@@ -26,7 +26,7 @@ export const TodoList = () => {
 			<form onSubmit={tarea ? agregarTarea : e => e.preventDefault()}>
 				<div className="container d-flex flex-column">
 					<h1 className="display-1 mx-auto">todos</h1>
-					<div className="form-group mt-5 blanco mb-0 d-flex">
+					<div className="form-group shadow mt-5 blanco mb-0 d-flex">
 						<input
 							type="text"
 							onChange={e => setTarea(e.target.value)}
@@ -35,14 +35,14 @@ export const TodoList = () => {
 						/>
 						<button
 							type="submit"
-							className="btn btn-outline-dark mr-3 my-auto ml-3">
+							className="btn btn-outline-dark mr-2 my-auto ml-3">
 							<i className="my-auto mx-auto fas fa-plus"></i>
 						</button>
 					</div>
-					<div className="list-group blanco">
+					<div className="list-group shadow blanco">
 						{listaTareas.map((tareas, index) => {
 							return (
-								<div
+								<a
 									href="#"
 									key={index}
 									onMouseOver={() => {
@@ -67,17 +67,17 @@ export const TodoList = () => {
 											<h1 className="h3">X</h1>
 										</span>
 									</span>
-								</div>
+								</a>
 							);
 						})}
-						<div className="border-right-0 border-left-0 p-2 list-group-item list-group-item-action list-group-item-light">
+						<div className="border-right-0 border-left-0 p-2 list-group-item list-group-item-light">
 							{listaTareas.length == 0
 								? "No hay tareas"
 								: "Hay " + listaTareas.length + " tareas"}
 						</div>
-						<div className="p-1 cajita1 mx-auto list-group-item list-group-item-action list-group-item-light"></div>
-						<div className="p-1 cajita2 mx-auto list-group-item list-group-item-action list-group-item-light"></div>
 					</div>
+					<div className="p-1 cajita1 border-top-0 mx-auto list-group-item list-group-item-light"></div>
+					<div className="p-1 cajita2 mx-auto list-group-item list-group-item-light"></div>
 				</div>
 			</form>
 		</div>
