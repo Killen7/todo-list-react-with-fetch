@@ -10,34 +10,36 @@ export const TodoList = () => {
 
 	const agregarTarea = event => {
 		event.preventDefault();
-		setListaTareas([
-			...listaTareas,
-			{
-				id: listaTareas.length,
-				name: tarea
-			}
-		]);
+		setListaTareas([...listaTareas, tarea]);
 		setTarea("");
+	};
+
+	const eliminarTarea = i => {
+		let newListaTareas = listaTareas.filter((element, index) => {
+			if (i != index) return element;
+		});
+		setListaTareas(newListaTareas);
 	};
 
 	return (
 		<div>
-			<form>
+			<form onSubmit={tarea ? agregarTarea : e => e.preventDefault()}>
 				<div className="container d-flex flex-column">
 					<h1 className="display-1 mx-auto">todos</h1>
-					<div className="form-group d-flex">
+					<div className="form-group mt-5 blanco mb-0 d-flex">
 						<input
 							type="text"
-							className="form-control display-4 d-flex"
+							onChange={e => setTarea(e.target.value)}
+							className="form-control display-4 border-0 pl-3 d-flex"
 							placeholder="Escribe tu tarea aqui"
 						/>
 						<button
 							type="submit"
-							className="btn btn-outline-dark ml-3">
-							<p>Agregar tarea</p>
+							className="btn btn-outline-dark mr-3 my-auto ml-3">
+							<i className="my-auto mx-auto fas fa-plus"></i>
 						</button>
 					</div>
-					<div className="list-group">
+					<div className="list-group blanco">
 						{listaTareas.map((tareas, index) => {
 							return (
 								<div
@@ -58,7 +60,10 @@ export const TodoList = () => {
 												(mouseover == index
 													? "activo"
 													: "")
-											}>
+											}
+											onClick={() => {
+												eliminarTarea(index);
+											}}>
 											<h1 className="h3">X</h1>
 										</span>
 									</span>
@@ -70,6 +75,8 @@ export const TodoList = () => {
 								? "No hay tareas"
 								: "Hay " + listaTareas.length + " tareas"}
 						</div>
+						<div className="p-1 cajita1 mx-auto list-group-item list-group-item-action list-group-item-light"></div>
+						<div className="p-1 cajita2 mx-auto list-group-item list-group-item-action list-group-item-light"></div>
 					</div>
 				</div>
 			</form>
