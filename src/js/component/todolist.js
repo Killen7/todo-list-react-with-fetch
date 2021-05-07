@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export const TodoList = () => {
-	const [tarea, setTarea] = useState("");
-	const [listaTareas, setListaTareas] = useState([
-		"Pasear al perro",
-		"Tender la cama"
-	]);
+	const [tarea, setTarea] = useState();
+	const [listaTareas, setListaTareas] = useState([]);
+	const [showError, setShowError] = useState(false);
+
 	const [mouseover, setMouseover] = useState();
+
+	useEffect(() => {
+		getData();
+	}, []);
 
 	const agregarTarea = event => {
 		event.preventDefault();
-		setListaTareas([...listaTareas, tarea]);
+		let newListaTareas = [...listaTareas, { label: tarea, done: false }];
+		setListaTareas(newListaTareas);
 		setTarea("");
+		updateData(newListaTareas);
 	};
 
 	const eliminarTarea = i => {
@@ -19,6 +24,33 @@ export const TodoList = () => {
 			if (i != index) return element;
 		});
 		setListaTareas(newListaTareas);
+		updateData(newListaTareas);
+	};
+
+	const getData = () => {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/killen")
+			.then(resp => resp.json())
+			.then(data => setListaTareas(data))
+			.catch(error => setShowError(true));
+	};
+
+	const updateData = updatedList => {
+		let updatedListToSend = JSON.stringify(updatedList);
+		let options = {
+			method: "PUT",
+			body: updatedListToSend,
+			headers: {
+				"Content-Type": "application/json"
+			}
+		};
+
+		fetch(
+			"https://assets.breatheco.de/apis/fake/todos/user/killen",
+			options
+		)
+			.then(resp => resp.json())
+			.then(data => console.log(data))
+			.catch(error => console.log(error));
 	};
 
 	return (
@@ -41,7 +73,7 @@ export const TodoList = () => {
 						</button>
 					</div>
 					<div className="list-group shadow blanco">
-						{listaTareas.map((tareas, index) => {
+						{listaTareas.map((tarea, index) => {
 							return (
 								<a
 									href="#"
@@ -54,7 +86,11 @@ export const TodoList = () => {
 									}}
 									className="border-right-0 border-left-0 list-group-item list-group-item-action list-group-item-light">
 									<span className="d-flex display-4 justify-content-between">
-										<span>{tareas}</span>{" "}
+										<span>
+											{showError
+												? "Cargando..."
+												: tarea.label}
+										</span>{" "}
 										<span
 											className={
 												"cruz" +
